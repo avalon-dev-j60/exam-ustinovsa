@@ -54,6 +54,7 @@ public class PasswordChangeServlet extends HttpServlet {
         try {
             User user = authService.getUser();
             authService.changePassword(password, newPassword, confirmation);
+            authService.signOut();
             ServletHelper.redirect(request, response, request.getContextPath() + "/login");
         } catch (RequiredDataException | DataIntegrityViolationException | AuthenticationException e) {
             e.getMessage();

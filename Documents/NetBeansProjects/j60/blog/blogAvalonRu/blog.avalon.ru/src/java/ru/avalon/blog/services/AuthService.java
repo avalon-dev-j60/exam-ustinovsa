@@ -78,6 +78,7 @@ public class AuthService {
     public void changePassword (String password,
             String newPassword,
             String confirmation) throws RequiredDataException, DataIntegrityViolationException, AuthenticationException{
+        
        User user = getUser();
         
         if (password == null || password.trim().isEmpty()) {
@@ -88,7 +89,7 @@ public class AuthService {
             throw new DataIntegrityViolationException("New password shouldn't equals old");
         } else if (confirmation == null || confirmation.trim().isEmpty()) {
             throw new RequiredDataException("New password confirmation is required");
-        } else if (!password.equals(confirmation)) {
+        } else if (!newPassword.equals(confirmation)) {
             throw new DataIntegrityViolationException("New password doesn't match confirmation");
         }
         
