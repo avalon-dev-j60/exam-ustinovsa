@@ -1,14 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ru.avalon.blog.services;
 
-/**
- *
- * @author JAVA
- */
+import java.util.List;
+import javax.ejb.*;
+import javax.persistence.*;
+import ru.avalon.blog.entities.*;
+
+@Stateless
 public class PublicationService {
+   
+    @PersistenceContext(unitName = "BlogPU")
+    EntityManager em;
+    
+    public void create(Publication publication) {
+        em.persist(publication);
+        em.flush();
+    }
+
+    public void save(Publication publication) {
+        em.merge(publication);
+    }
     
 }
