@@ -1,5 +1,8 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@tag description="put the tag description here" pageEncoding="UTF-8"%>
 <%@taglib prefix="common" tagdir="/WEB-INF/tags/core/" %>
+
+<fmt:setBundle basename="ru.avalon.blog.resources.labels"/>
 
 <common:error/>
 
@@ -10,23 +13,23 @@
         <input type="email"
                name="email"
                value="${param.email}"
-               placeholder="Enter your email here..."
+               placeholder="<fmt:message key="label.email"/>"
                required>
         
     </p>
     <p class="row gap-bottom">
         <input type="password"
                name="password"
-               placeholder="Enter your password here..."
+               placeholder="<fmt:message key="label.password"/>"
                required>
         
     </p>
     <p class="row gap-bottom">
         <a href="${pageContext.servletContext.contextPath}/registration">
-            Sign up
+            <fmt:message key="label.sign-up.action"/>
         </a>
             <button class="pull-right">
-                Sign in
+                <fmt:message key="label.sign-in.action"/>
             </button>
     </p>
 </form>

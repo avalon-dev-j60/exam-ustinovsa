@@ -29,9 +29,9 @@ public class AuthService {
     public void signIn(String email, String password) throws AuthenticationException {
         User user = userService.findByEmail(email);
         if (user == null) {
-            throw new AuthenticationException("User not found!");
+            throw new AuthenticationException("error.user.unknown");
         } else if (!password.equals(user.getPassword())) {
-            throw new AuthenticationException("Incorrect password!");
+            throw new AuthenticationException("error.password.wrong");
         } else {
             session.setAttribute("user", email);
         }
@@ -50,7 +50,7 @@ public class AuthService {
         if (email != null) {
             return userService.findByEmail(email);
         }
-        throw new AuthenticationException("User not signed in");
+        throw new AuthenticationException("error.user.offline");
     }
 
     public void register(String email, String password, String confirmation)
@@ -59,15 +59,15 @@ public class AuthService {
         User user = userService.findByEmail(email);
         
         if (email == null || email.trim().isEmpty()) {
-            throw new RequiredDataException("Email is required");
+            throw new RequiredDataException("error.email.required");
         } else if (password == null || password.trim().isEmpty()) {
-            throw new RequiredDataException("Password is required");
+            throw new RequiredDataException("error.password.required");
         } else if (confirmation == null || confirmation.trim().isEmpty()) {
-            throw new RequiredDataException("Password confirmation is required");
+            throw new RequiredDataException("error.password.confirmation.required");
         } else if (!password.equals(confirmation)) {
-            throw new DataIntegrityViolationException("Password doesn't match confirmation");
+            throw new DataIntegrityViolationException("error.password.match.confirmation.incorrect");
         } else if (user!=null) {
-            throw new DataIntegrityViolationException("User alredy exist");
+            throw new DataIntegrityViolationException("error.user.duplicated");
         }
         
         user = new User(email, password);
@@ -82,15 +82,15 @@ public class AuthService {
        User user = getUser();
         
         if (password == null || password.trim().isEmpty()) {
-            throw new RequiredDataException("Current password is required");
+            throw new RequiredDataException("error.password.current.required");
         } else if (newPassword == null || newPassword.trim().isEmpty()) {
-            throw new RequiredDataException("New password is required");
+            throw new RequiredDataException("error.password.new.required");
         } else if (newPassword.equals(password)){
-            throw new DataIntegrityViolationException("New password shouldn't equals old");
+            throw new DataIntegrityViolationException("error.password.new.repeat");
         } else if (confirmation == null || confirmation.trim().isEmpty()) {
-            throw new RequiredDataException("New password confirmation is required");
+            throw new RequiredDataException("error.password.new.confirmation.required");
         } else if (!newPassword.equals(confirmation)) {
-            throw new DataIntegrityViolationException("New password doesn't match confirmation");
+            throw new DataIntegrityViolationException("error.password.new.match.confirmation.incorrect");
         }
         
         user.setPassword(newPassword);
