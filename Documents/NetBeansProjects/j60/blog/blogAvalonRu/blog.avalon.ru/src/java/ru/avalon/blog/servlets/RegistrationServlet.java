@@ -14,10 +14,6 @@ import ru.avalon.blog.exceptions.*;
 import ru.avalon.blog.helpers.*;
 import ru.avalon.blog.services.*;
 
-/**
- *
- * @author JAVA
- */
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
 
