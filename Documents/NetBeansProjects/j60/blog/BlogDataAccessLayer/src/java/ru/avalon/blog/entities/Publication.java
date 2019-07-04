@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ru.avalon.blog.entities;
 
 import java.io.Serializable;
@@ -15,30 +10,35 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- *
- * @author JAVA
- */
-@Entity
-public class Publication implements Serializable{
-    
+@NamedQueries({
+    @NamedQuery(
+            name = "find-publication-by-title",
+            query = "SELECT p "
+            + "FROM Publications AS p "
+            + "WHERE p.title =:title"
+    )
+
+})
+@Entity(name = "Publications")
+public class Publication implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    
+
     @Column(nullable = false)
     private String title;
-    
+
     @Column(columnDefinition = "LONG VARCHAR")
     private String content;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date createdAt;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date editedAt;
-    
+
     @ManyToOne
     @JoinColumn(nullable = false)
     private User author;
@@ -79,16 +79,14 @@ public class Publication implements Serializable{
         this.editedAt = editedAt;
     }
 
-    public Publication(User author, String title, Date createdAt, String content) {
+    public Publication(User author, String title, String content) {
         this.author = author;
         this.title = title;
         this.createdAt = new Date();
         this.content = content;
     }
-    
-    
-    
+
     public Publication() {
     }
-    
+
 }

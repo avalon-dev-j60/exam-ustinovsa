@@ -10,20 +10,20 @@ import ru.avalon.blog.entities.User;
 public class UserService {
 
     @PersistenceContext(unitName = "BlogPU")
-    EntityManager em;
+    EntityManager emus;
 
     public void create(User user) {
-        em.persist(user);
-        em.flush();
+        emus.persist(user);
+        emus.flush();
     }
 
     public void save(User user) {
-        em.merge(user);
+        emus.merge(user);
     }
 
     public User findByEmail(String email) {
         try {
-            return em.createNamedQuery("find-user-by-email", User.class)
+            return emus.createNamedQuery("find-user-by-email", User.class)
                     .setParameter("email", email)
                     .getSingleResult();
         } catch  (NoResultException e)  {

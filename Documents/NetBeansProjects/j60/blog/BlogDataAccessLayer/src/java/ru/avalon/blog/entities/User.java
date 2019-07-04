@@ -28,7 +28,7 @@ public class User implements Serializable {
     private String password;
 
     @OneToMany(cascade = {CascadeType.REMOVE,
-            CascadeType.REFRESH},
+        CascadeType.REFRESH},
             fetch = FetchType.EAGER,
             mappedBy = "author",
             targetEntity = Publication.class)
