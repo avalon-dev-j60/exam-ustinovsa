@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
             name = "find-publication-by-title",
             query = "SELECT p "
             + "FROM Publications AS p "
-            + "WHERE p.title =:title"
+            + "WHERE p.title =:publicationTitle"
     )
 
 })
