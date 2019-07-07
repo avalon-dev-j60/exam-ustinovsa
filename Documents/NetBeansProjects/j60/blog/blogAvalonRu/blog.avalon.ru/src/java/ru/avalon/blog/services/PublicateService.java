@@ -2,6 +2,7 @@ package ru.avalon.blog.services;
 
 import javax.ejb.*;
 import javax.inject.Inject;
+import javax.naming.AuthenticationException;
 import javax.servlet.http.HttpSession;
 import ru.avalon.blog.entities.Publication;
 import ru.avalon.blog.entities.User;
@@ -42,6 +43,22 @@ public class PublicateService {
     public boolean isExist() {
         String title = (String) session.getAttribute("publicationTitle");
 
-        return publicationService.findByTitle(title) != null; 
+        return publicationService.findByTitle(title) != null;
     }
+
+    public void changePublication(User author, String title, String newContent) throws RequiredDataException, DataIntegrityViolationException, AuthenticationException {
+
+        if (!authService.isSignedIn()) {
+            Publication publication = publicationService.findByTitle(title);
+            if (!author.equals(publication.getAuthor())) {
+                throw new DataIntegrityViolationException("error.publication.user-isnt-author");
+            }
+            publication.setContent(newContent);
+            publication.setEditedAt();
+            publicationService.save(publication);
+        }
+    }
+
+
+
 }
