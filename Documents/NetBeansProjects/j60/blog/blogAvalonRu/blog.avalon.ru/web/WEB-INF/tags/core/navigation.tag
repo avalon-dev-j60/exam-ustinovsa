@@ -44,6 +44,10 @@
                     </a>
                 </c:when>
                 <c:otherwise>
+                     <a href="${context}/publication" class="padded">
+                        <fmt:message bundle="${labels}"
+                                     key="label.publication.title"/>
+                    </a>
                     <a href="${context}/passwordChange" class="padded">
                         <fmt:message bundle="${labels}"
                                      key="label.password-change.title"/>
